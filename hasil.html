@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Kultivasi - BTTH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(to right, #4a0000, #220000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url('https://images.app.goo.gl/aU9zEEfWYnbKqQ6y6'); /* Gambar siluet pertempuran */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.08;
+      z-index: 0;
+      animation: bgPulse 20s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { opacity: 0.08; }
+      50% { opacity: 0.15; }
+    }
+
+    .result-box {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+      max-width: 600px;
+      width: 100%;
+      animation: floatBox 4s ease-in-out infinite;
+      text-align: center;
+    }
+
+    @keyframes floatBox {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    h1 {
+      color: #ff6666;
+      text-shadow: 0 0 10px #ff0000;
+      margin-bottom: 20px;
+    }
+
+    .result-entry {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 10px auto;
+      padding: 15px;
+      border-radius: 10px;
+      width: 80%;
+      font-size: 18px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box" id="resultBox">
+    <h1>🌟 Hasil Kultivasi 🌟</h1>
+    <div class="result-entry" id="resName"></div>
+    <div class="result-entry" id="resAge"></div>
+    <div class="result-entry" id="resClan"></div>
+    <div class="result-entry" id="resElement"></div>
+    <div class="result-entry" id="resTraining"></div>
+    <div class="result-entry" id="resTemperament"></div>
+    <div class="result-entry" id="resTalent"></div>
+    <div class="result-entry" id="resLevel"></div>
+  </div>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const name = getQueryParam("name");
+    const umur = parseInt(getQueryParam("umur"));
+    const clan = getQueryParam("clan");
+    const element = getQueryParam("element");
+    const training = parseInt(getQueryParam("training"));
+    const temperament = getQueryParam("temperament");
+    const talent = getQueryParam("talent");
+
+    let level = "";
+    const power = umur * training;
+
+    if (talent === "Dewa") {
+      if (power > 8000) level = "Dou Di (斗帝)";
+      else if (power > 7000) level = "Dou Sheng 9-Bintang (斗圣)";
+      else if (power > 6000) level = "Dou Sheng 5-Bintang (斗圣)";
+      else level = "Dou Sheng 1-Bintang (斗圣)";
+    } else if (talent === "Langka") {
+      if (power > 5000) level = "Dou Zun (斗尊)";
+      else if (power > 4000) level = "Dou Zong (斗宗)";
+      else level = "Dou Huang (斗皇)";
+    } else if (talent === "Tinggi") {
+      if (power > 3000) level = "Dou Wang (斗王)";
+      else if (power > 2000) level = "Dou Ling (斗灵)";
+      else level = "Da Dou Shi (大斗师)";
+    } else if (talent === "Sedang") {
+      if (power > 1500) level = "Dou Shi (斗师)";
+      else if (power > 1000) level = "Dou Zhe (斗者)";
+      else level = "Dou Zhi Qi (斗之气)";
+    } else {
+      level = "Dou Zhi Qi (斗之气)";
+    }
+
+    document.getElementById("resName").textContent = `Nama Kultivator: ${name}`;
+    document.getElementById("resAge").textContent = `Umur Dunia Fana: ${umur} tahun`;
+    document.getElementById("resClan").textContent = `Klan: ${clan}`;
+    document.getElementById("resElement").textContent = `Elemen: ${element}`;
+    document.getElementById("resTraining").textContent = `Lama Kultivasi: ${training} tahun`;
+    document.getElementById("resTemperament").textContent = `Sifat: ${temperament}`;
+    document.getElementById("resTalent").textContent = `Bakat: ${talent}`;
+    document.getElementById("resLevel").textContent = `Level Kultivasi: ${level}`;
+  </script>
+</body>
+</html>
